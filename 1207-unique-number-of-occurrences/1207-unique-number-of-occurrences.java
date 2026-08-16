@@ -1,28 +1,14 @@
-
-import java.util.Arrays;
-
 class Solution {
     public boolean uniqueOccurrences(int[] arr) {
-        Arrays.sort(arr);
-        int[] v = new int[arr.length];
-        int idx = 0;
+        Map<Integer, Integer> arrayMap = new HashMap<>();
+        Set<Integer> uniqueSet = new HashSet<>();
 
-        for (int i = 0; i < arr.length; i++) {
-            int cnt = 1;
-
-            // Count occurrences of the current element
-            while (i + 1 < arr.length && arr[i] == arr[i + 1]) {
-                cnt++;
-                i++;
-            }
-
-            v[idx++] = cnt;
+        for (int num : arr) {
+            arrayMap.put(num, arrayMap.getOrDefault(num, 0) + 1);
         }
 
-        Arrays.sort(v);
-
-        for (int i = 1; i < v.length; i++) {
-            if (v[i] == v[i - 1]) {
+        for (int frequency : arrayMap.values()) {
+            if (!uniqueSet.add(frequency)) {
                 return false;
             }
         }
@@ -30,7 +16,6 @@ class Solution {
         return true;
     }
 }
-
 
 // Synced seamlessly with LeetHub Pro
 // Pro features: https://bit.ly/leethubpro | Free version: https://bit.ly/leethubv4
